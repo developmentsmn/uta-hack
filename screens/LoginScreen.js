@@ -6,25 +6,19 @@ import {
     Button
 } from "react-native";
 
-import Expo from 'expo';
-
+import * as Google from 'expo-google-app-auth';
 
 class LoginScreen extends Component {
 
-    signInWithGoogleAsync = async ()=> 
+    signInWithGoogleAsync = async () => 
     {
         try {
-          const result = await Expo.Google.logInAsync(
-          {
-            // behavior: 'web',
+          const { type, accessToken, user } = await Google.logInAsync({
+            behavior: 'web',
             androidClientId: '788748430234-ld74p25adkog088bbg9069o7ue4bskqd.apps.googleusercontent.com',
-
             // iosClientId: YOUR_CLIENT_ID_HERE,
-
             scopes: ['profile', 'email'],
-
           });
-      
           if (result.type === 'success') {
             return result.accessToken;
           } else {
@@ -40,12 +34,13 @@ class LoginScreen extends Component {
             <View style={styles.container}>
                 <Button
                     title = "Sign in with Google"
-                    onPress = {()=> this.signInWithGoogleAsync()}
+                    onPress = {this.signInWithGoogleAsync}
                 />
              </View>
         );
     }
 }
+
 export default LoginScreen;
 
 const styles = StyleSheet.create({

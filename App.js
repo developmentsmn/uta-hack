@@ -14,12 +14,8 @@ firebase.initializeApp(firebaseConfig);
 
 export default class App extends React.Component {
   render() {
-    contextData = {
-      hello: "This is a string",
-      firebase
-    }
     return (
-      <FirebaseContext.Provider value={contextData}>
+      <FirebaseContext.Provider value={firebase}>
         <AppNavigator/>
       </FirebaseContext.Provider>
     );
